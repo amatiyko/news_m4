@@ -1,0 +1,19 @@
+<form action = "" method = "post" >
+    <div class="form-group">
+        <label for="style">Colors:</label>
+        <select class="form-control" id="style" name="style">
+            <?php foreach ($data['styles'] as $style):?>
+                <option><?=$style['bc_color']?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+    <input type = "submit" class = "btn btn-success" name="set_color"/>
+</form>
+<form action = "" method = "post">
+    <div class="form-group">
+        <label for="new_color">Add new color:</label>
+        <input type = "text" id="color" name="color" placeholder="" = "Add color..."
+               class="form-control">
+    </div>
+    <input type = "submit" class = "btn btn-success" name="new_color"/>
+</form>

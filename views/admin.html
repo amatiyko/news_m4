@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" type="text/css">
+    <link rel = "stylesheet" href = "carousel.css" type="text/css">
+    <link rel = "stylesheet" href = "css/popup.css" type="text/css">
+    <title><?= Config::get('site_name') ?><?='admin section'?></title>
+
+    <style>
+        .separator {
+            width: 90%;
+            height: 1px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 30px auto;
+        }
+        .description {
+            font-style: italic;
+            font-size: 12px;
+        }
+        .alert {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse" style="background-color:<?= $data['config'][0]['value'] ?>">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/admin">Project name</a>
+
+    </div>
+    <ul id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="/find/">Filter</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Меню
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Меню 1</a></li>
+                    <li class="dropdown-submenu">
+                        <a href="#">Выпадающее меню</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Сабменю 1</a></li>
+                            <li><a href="#">Сабменю 2</a></li>
+                            <li><a href="#">Сабменю 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Меню 2</a></li>
+                    <li><a href="#">Меню 3</a></li>
+                </ul>
+            </li>
+            <?php if (Session::get('login')): ?>
+                <li> <a href = "admin/users/logout">Logout</a></li>
+            <?php endif; ?>
+        </ul>
+</nav>
+
+
+    <div class="container">
+        <?php if (Session::hasFlash()) { ?>
+            <div class="alert alert-info" role="alert">
+                <?php Session::flash(); ?>
+            </div>
+        <?php } ?>
+        <?php  echo $data['content']; ?>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

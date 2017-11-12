@@ -1,0 +1,161 @@
+<style>
+    img {
+        width: 200px;
+        height: auto;
+    }
+    h2, p {
+        margin: 30px 0;
+    }
+    .article {
+        text-align: justify;
+        font-size: 18px;
+        line-height: 32px;
+    }
+    .description {
+        padding-left: 50px;
+    }
+    .tag {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 0 20px;
+        border-radius: 10px;
+        font-style: italic;
+        background-color: #757575;
+        color: white;
+    }
+    .comment {
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+    .comment, .comment-answer {
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    }
+    .comment-answer {
+        width: 70%;
+        margin-left: auto;
+        margin-right: 0;
+    }
+    .author {
+        text-align: right;
+        font-size: 10px;
+        font-style: italic;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    .leave-answer {
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .leave-answer input {
+        width: 100px;
+    }
+    .leave-answer textarea {
+        margin-right: 0;
+        height: 30px;
+        width: 300px;
+    }
+    .comment-answer {
+        margin-bottom: 5px;
+    }
+</style>
+
+<div class="col-md-12">
+    <div class="row">
+            <h2><?=$data['article']['title']?></h2>
+            <p class="description"> - <?=$data['article']['description']?></p>
+            <p class="article"><?=$data['article']['content']?></p>
+            <img src = "/<?= $data['article']['image'] ?>" alt = "">
+            <span><?=$data['reads_now']?> reading</span><span style='padding: 0 10px;
+'><b>||</b></span><span><?=$data['article']['read_amount']?>
+                allready
+                read</span>
+
+    </div>
+</div>
+
+ <div class="col-md-12 tag-container">
+        <div class="row">
+             <div class="col-md-9 col-md-offset-2">
+                <?php foreach ($data['tags'] as $tag):?>
+                    <div class="tag"><a href = "/tags/index/<?=$tag['tag_name']?>"><?=$tag['tag_name']?></a></div>
+                <?php endforeach;?>
+             </div>
+        </div>
+ </div>
+
+<?php if(count($data['comments']) > 0): ?>
+<div class="col-md-12 comments-container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h3>Comments:</h3>
+                <?php foreach ($data['comments'] as $comment): ?>
+                    <div>
+                        <div class="comment"><?=$comment['comment']?></div>
+                        <p class="author"><b>Author - </b><?=$comment['author']?></p>
+                        <?php if(isset($_SESSION['login'])): ?>
+                            <form action = "" method="post" class="leave-answer">
+                            <div class="form-group">
+                                <label for="answer">Leave answer</label>
+                                <input type="hidden"  name = "comment_id" value = "<?= $comment['id']?>">
+                                <textarea  type = "text" id="answer" name="answer"
+                                          class="form-control"></textarea>
+                            </div>
+                            <input type = "submit" class = "btn btn-success" name="answer-btn" />
+                        </form>
+                        <?php endif; ?>
+                        <?php if (count($data['answers'][$comment['id']]) > 0 ): ?>
+                            <?php foreach ($data['answers'][$comment['id']] as $answer): ?>
+                                <div class="comment-answer"><?=$answer['answer']?></div>
+                                <p class="author"><b>Author: <?=$answer['author']?></b></p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php if(isset($_SESSION['login'])): ?>
+                    <div>Comment's raiting: <?=$comment['raiting']?></div>
+                        <form action = "" method="post">
+                            <input type = "hidden" value="<?=$comment['id']?>" name="comment_id">
+                            <input type = "submit" value="like" name="like">
+                        </form>
+                        <form action = "" method="post">
+                            <input type = "hidden" value="<?=$comment['id']?>" name="comment_id">
+                            <input type = "submit" value="dislike" name="dislike">
+                        </form>
+                    <?php endif; ?>
+
+
+                <?php endforeach;?>
+        </div>
+    </div>
+</div>
+<?php endif;?>
+
+
+<?php if(isset($_SESSION['login'])): ?>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <form action = "" method = "post">
+                <div class="form-group">
+                    <label for="comment">Add comment</label>
+                    <input type="hidden"  name = "article_id" value = "<?= $data['article']['id']?>">
+                    <input type="hidden"  name = "title" value = "<?= $data['article']['title']?>">
+                    <textarea type = "text" id="comment" name="comment" class="form-control"></textarea>
+                </div>
+                <input type = "submit" class = "btn btn-success" name="comment-btn" />
+            </form>
+        </div>
+    </div>
+</div>
+<?php endif; ?>

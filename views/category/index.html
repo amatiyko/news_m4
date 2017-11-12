@@ -1,0 +1,18 @@
+<h3> <?php echo $data['category']?> news</h3>
+
+<div class="container articles-container">
+    <?php foreach($data['articles_list'] as $article):?>
+    <div class="row">
+        <div class="article-container col-md-10 col-md-offset-1">
+            <h4><?= $article['title']?></h4>
+            <p class="description"><?= $article['description']?></p>
+            <p><a class="btn btn-default" href="../../article/<?=$article['category']?>/<?=$article['id']?>"
+                  role="button">View
+                    details
+                    &raquo;
+                </a></p>
+            <div class="separator"></div>
+        </div>
+    </div>
+    <?php endforeach;?>
+</div>

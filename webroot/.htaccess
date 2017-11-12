@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-d [NC] # запрошенной имя файля не является директорией
+    RewriteCond %{REQUEST_FILENAME} !-f [NC] # запрошенной имя файля не является файлом в текущей структуре
+    RewriteRule ^(.*)$ index.php [PT,L]     # перенаправление на 1.php
+</IfModule>

@@ -1,0 +1,74 @@
+<style>
+    .add {
+        margin: 40px 0;
+    }
+    .add span {
+        margin-right: 20px;
+    }
+    .actions div{
+        display: inline-block;
+        margin-right: 40px;
+    }
+    td {
+        vertical-align: top;
+    }
+</style>
+
+
+<div class="col-md-12">
+
+    <div class="actions">
+        <div class="add">
+            <span>Add New Article</span>
+            <a href = "/admin/pages/add_article/"><button class="btn btn-sm
+                btn-warning">New Article</button></a>
+        </div>
+
+        <div class="add">
+            <span>Add New Category</span>
+            <a href = "/admin/pages/add_category/"><button class="btn btn-sm
+                    btn-warning">New Category</button></a>
+        </div>
+
+        <div class="moderate">
+            <span>Moderate comments</span>
+            <a href = "/admin/pages/moderate/"><button class="btn btn-sm
+                    btn-warning">Moderate</button></a>
+        </div>
+        <div class="moderate">
+            <span>Moderate advertisement</span>
+            <a href = "/admin/pages/advert/"><button class="btn btn-sm
+                    btn-warning">Advert</button></a>
+        </div>
+        <div class="style">
+            <span>Style control</span>
+            <a href = "/admin/pages/style/"><button class="btn btn-sm
+                    btn-warning">Style</button></a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+            <?php foreach ($data['articles_list'] as $article): ?>
+                <tr>
+                    <td><b><?= $article['title'] ?></b></td>
+                    <td align="right">
+                        <a href = "/admin/pages/edit/<?=$article['id']?>"><button class="btn btn-sm
+                    btn-primary">edit</button></a>
+                        <a href = "/admin/pages/delete/<?=$article['id']?>"><button onclick="return
+                        confirmDelete()" class="btn btn-sm
+                    btn-warning">delete</button></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+     </table>
+</div>
+
+<script>
+    function confirmDelete() {
+        alert('hello');
+        if (confirm("Delete this article?")) {
+            return true;
+        }
+        return false;
+    }
+</script>

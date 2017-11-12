@@ -1,0 +1,56 @@
+<style>
+    .comment-container {
+        border: .5px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .author {
+        font-style: italic;
+        font-size: 10px;
+        padding-left: 50px;
+    }
+    input[type=checkbox] {
+        margin-right: 25px;
+    }
+    label {
+        font-size: 20px;
+    }
+</style>
+<h2>Comments to approve: </h2>
+<?php  if (count($data['comments_to_approve']) == 0): ?>
+    <p>No commnets to approve</p>
+<?php  else: ?>
+    <form action = "" method = "post">
+        <?php   foreach ($data['comments_to_approve'] as $comment):?>
+            <div class="form-group comment-container">
+                <label for="<?=$comment['id']?>">Title</label>
+                <p class="comment"><b>Comment</b> :
+                    <input type = "hidden" name="comment-id" value="<?=$comment['id']?>">
+                    <input required type = "text" id="description" name="description" placeholder="" = "Add description..."
+               class="form-control" value="<?= $comment['comment']?>">
+                </p>
+                <p class="author"><b>Author</b>  - <?= $comment['author']?></p>
+                <input type = "submit" class="btn btn-success" value="Save changes" name = 'save-changes'/><br/><br/>
+                <input type = "checkbox" name="<?=$comment['id']?>" id="<?=$comment['id']?>"/><span>Approve</span>
+            </div>
+        <?php endforeach; ?>
+        <input type = "submit" class = "btn btn-success" name="comment-approve" />
+    </form>
+<?php endif; ?>
+<h2>Answers to approve: </h2>
+<?php  if (count($data['answers_to_approve']) == 0): ?>
+    <p>No answers to approve</p>
+<?php  else: ?>
+    <form action = "" method = "post">
+        <?php   foreach ($data['answers_to_approve'] as $answer):?>
+            <div class="form-group comment-container">
+                <label for="<?=$answer['id']?>">Title</label>
+                <p class="comment"><b>Comment</b> : <?= $answer['answer']?></p>
+                <p class="author"><b>Author</b>  - <?= $answer['author']?></p>
+                <input type = "checkbox" name="<?=$answer['id']?>" id="<?=$answer['id']?>"/><span>Approve</span>
+            </div>
+        <?php endforeach; ?>
+        <input type = "submit" class = "btn btn-success" name="answer-approve" />
+    </form>
+<?php endif; ?>
+

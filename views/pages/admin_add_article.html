@@ -1,0 +1,37 @@
+<h3>Add article</h3>
+<form action = "" method = "post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input required type = "text" id="title" name="title" placeholder="" = "Add title..." class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input required type = "text" id="description" name="description" placeholder="" = "Add description..."
+               class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <input required type = "text" id="contenttitle" name="content" placeholder="" = "Add content..." class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="category">Category:</label>
+        <select class="form-control" id="category" name="category">
+            <?php foreach ($data['categories'] as $category):?>
+                <option><?=$category['category']?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="tags">Tags:</label>
+        <select class="form-control" id="tags" name="tags[]" multiple>
+            <?php foreach ($data['tags'] as $tag):?>
+                <option><?=$tag['tag_name']?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for = "image">Image</label>
+        <input type = "file" name="image" id="image" />
+    </div>
+    <input type = "submit" class = "btn btn-success" />
+</form>
